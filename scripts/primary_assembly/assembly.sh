@@ -33,4 +33,9 @@ kmergenie list_files
 spades.py --meta -1 C1_BSSE_unmapped_R1.fq.gz -2 C1_BSSE_unmapped_R2.fq.gz  -m 125 -t 55 -o spades_meta
 
 # The resultant assembly is a few more Mbp than we expect, so we're clearly getting some other species genomes here.
+
+# Let's rename the contigs to simplify downstream analysis
+
+bioawk -c fastx '{ print ">contig_" ++i" }' < contigs.fasta > C1_metaspades.fasta
+
 # Let's move to a blob analysis to try to pull things apart a bit more before we try to scaffold
