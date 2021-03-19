@@ -25,5 +25,12 @@ pigz *.fq
 ls -1 C1_BSSE_unmapped*.fq.gz > list_files
 kmergenie list_files
 
+# We're not gettig really clear signals from the kmer distribution so we're going to have to do more
+# parameter sweeps. spades has some nice behavior about retaining sub kmer assemblies and combining them
+# with the next target kmer. Additionally, we know we're not getting perfect (or great) isolation of P. ramosa
+# reads so we're going to use the 'meta-spades' algorithm.
 
+spades.py --meta -1 C1_BSSE_unmapped_R1.fq.gz -2 C1_BSSE_unmapped_R2.fq.gz  -m 125 -t 55 -o spades_meta
 
+# The resultant assembly is a few more Mbp than we expect, so we're clearly getting some other species genomes here.
+# Let's move to a blob analysis to try to pull things apart a bit more before we try to scaffold
